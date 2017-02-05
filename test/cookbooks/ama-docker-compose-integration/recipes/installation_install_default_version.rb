@@ -1,6 +1,6 @@
 #
-# Cookbook Name:: ama-docker-compose
-# Recipe:: default
+# Cookbook Name:: ama-docker-compose-integration
+# Recipe:: installation_install_default_version
 #
 # Copyright 2017, AMA Team
 #
@@ -24,4 +24,8 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-include_recipe '::install'
+install_directory = AMA::Chef::Cookbook::DockerCompose::PathSpec.installation('default-version')
+path = ::File.join(install_directory, 'docker-compose')
+
+directory install_directory
+docker_compose_installation path

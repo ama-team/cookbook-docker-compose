@@ -1,0 +1,17 @@
+---
+driver:
+  name: vagrant
+  use_vagrant_berkshelf_plugin: true
+
+provisioner:
+  name: chef_zero
+  cookbook_path: test/cookbooks
+
+platforms:
+  - name: ubuntu-14.04
+
+suites:
+  - name: default
+    run_list:
+      - recipe[ama-docker-compose-integration::default]
+    attributes:

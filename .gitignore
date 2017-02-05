@@ -1,2 +1,9 @@
+# Cookbook-related files
+Berksfile.lock
+
 # IDE files
 .idea
+
+# Kitchen files
+.kitchen/
+.kitchen.local.yml

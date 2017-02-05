@@ -49,6 +49,9 @@ docker_compose_installation '/usr/local/bin/docker-compose' do
   platform 'Linux'
   # just in case you don't like specifying path in resource name 
   path '/usr/local/bin/docker-compose'
+  # used to prevent shell commands stalling
+  # you may set it to nil to disable
+  timeout 300
   # create it or delete it
   action :create
 end
@@ -61,8 +64,13 @@ docker_compose_deployment '/srv/router/docker-compose.yml' do
   # standard location is used by default, but you can specify it if you wish
   compose_path '/usr/local/bin/docker-compose'
   configuration_files ['/srv/router/docker-compose.yml', '/srv/router/docker-compose-overrides.yml']
-  timeout 10 # for :stop action
-  signal 'SIGHUP' # for :kill action
+  # used to prevent shell commands stalling
+  # you may set it to nil to disable
+  timeout 300
+  # used with :stop action
+  stop_timeout 10
+  # used with :kill action
+  signal 'SIGHUP'
   action :up
 end
 ```
@@ -86,6 +94,11 @@ Available actions are:
 | `:up`      | Maps to same docker-compose command                  |
 | `:down`    | Maps to same docker-compose command                  |
 | `:kill`    | Maps to same docker-compose command                  |
+
+Please note that those actions are always executed (at least, for now),
+since it is difficult to check whether all containers are up. However,
+you can always use guard files that, if present, would guarantee action
+has been executed.
 
 ## Contributing
 

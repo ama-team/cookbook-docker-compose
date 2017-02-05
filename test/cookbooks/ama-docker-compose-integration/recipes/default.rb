@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: ama-docker-compose
+# Cookbook Name:: ama-docker-compose-integration
 # Recipe:: default
 #
 # Copyright 2017, AMA Team
@@ -23,5 +23,14 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
+#
 
-include_recipe '::install'
+# include_recipe '::_installation_bootstrap'
+# include_recipe '::installation_install_default_version'
+# include_recipe '::installation_install_fixed_version'
+# include_recipe '::installation_overwrite_installation'
+# include_recipe '::installation_remove_existing_installation'
+# include_recipe '::installation_remove_missing_installation'
+#
+# include_recipe '::_deployment_bootstrap'
+include_recipe '::deployment_up_and_down'

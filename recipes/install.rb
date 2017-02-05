@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: ama-docker-compose
-# Recipe:: default
+# Recipe:: install
 #
 # Copyright 2017, AMA Team
 #
@@ -24,4 +24,4 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-include_recipe '::install'
+docker_compose_installation '/usr/local/bin/docker-compose'

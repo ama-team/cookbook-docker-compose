@@ -1,6 +1,6 @@
 #
-# Cookbook Name:: ama-docker-compose
-# Recipe:: default
+# Cookbook Name:: ama-docker-compose-integration
+# Recipe:: _installation_bootstrap
 #
 # Copyright 2017, AMA Team
 #
@@ -24,4 +24,12 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-include_recipe '::install'
+directory AMA::Chef::Cookbook::DockerCompose::PathSpec.deployment do
+  recursive true
+end
+
+docker_service 'default' do
+  action [:create, :start]
+end
+
+docker_compose_installation '/usr/local/bin/docker-compose'

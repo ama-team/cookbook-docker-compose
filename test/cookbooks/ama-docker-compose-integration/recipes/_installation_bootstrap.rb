@@ -1,6 +1,6 @@
 #
-# Cookbook Name:: ama-docker-compose
-# Recipe:: default
+# Cookbook Name:: ama-docker-compose-integration
+# Recipe:: _installation_bootstrap
 #
 # Copyright 2017, AMA Team
 #
@@ -24,4 +24,6 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-include_recipe '::install'
+directory AMA::Chef::Cookbook::DockerCompose::PathSpec.installation do
+  recursive true
+end

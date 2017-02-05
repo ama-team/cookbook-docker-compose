@@ -1,6 +1,6 @@
 #
-# Cookbook Name:: ama-docker-compose
-# Recipe:: default
+# Cookbook Name:: ama-docker-compose-integration
+# Recipe:: deployment_up_and_down
 #
 # Copyright 2017, AMA Team
 #
@@ -24,4 +24,11 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-include_recipe '::install'
+deployment_directory = AMA::Chef::Cookbook::DockerCompose::PathSpec.deployment('up-and-down')
+path = ::File.join(deployment_directory, 'docker-compose.yml')
+
+directory deployment_directory
+cookbook_file path
+docker_compose_deployment path do
+  action [:up, :down]
+end

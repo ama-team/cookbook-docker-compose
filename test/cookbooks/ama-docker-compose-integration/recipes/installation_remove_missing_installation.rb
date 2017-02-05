@@ -1,6 +1,6 @@
 #
-# Cookbook Name:: ama-docker-compose
-# Recipe:: default
+# Cookbook Name:: ama-docker-compose-integration
+# Recipe:: installation_remove_missing_installation
 #
 # Copyright 2017, AMA Team
 #
@@ -24,4 +24,8 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-include_recipe '::install'
+path = AMA::Chef::Cookbook::DockerCompose::PathSpec.installation('removal/missing/docker-compose')
+
+docker_compose_installation path do
+  action :delete
+end
