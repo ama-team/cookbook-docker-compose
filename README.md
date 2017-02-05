@@ -61,11 +61,15 @@ docker_compose_deployment '/srv/router/docker-compose.yml' do
   # standard location is used by default, but you can specify it if you wish
   compose_path '/usr/local/bin/docker-compose'
   configuration_files ['/srv/router/docker-compose.yml', '/srv/router/docker-compose-overrides.yml']
-  timeout 10 # for actions with timeout
+  timeout 10 # for :stop action
   signal 'SIGHUP' # for :kill action
   action :up
 end
 ```
+
+Please note that name property is used to locate configuration file
+unless `configuration_files` contains non-empty array, in that case
+`configuration_files` will take precedence.
 
 Available actions are:
 
@@ -81,6 +85,7 @@ Available actions are:
 | `:push`    | Maps to same docker-compose command                  |
 | `:up`      | Maps to same docker-compose command                  |
 | `:down`    | Maps to same docker-compose command                  |
+| `:kill`    | Maps to same docker-compose command                  |
 
 ## Contributing
 
