@@ -1,9 +1,3 @@
-# Draft warning
-
-This cookbook is in active development and hasn't been released yet. 
-You are looking at this simply because master branch had to have 
-initial commit.
-
 # ama-docker-compose Cookbook
 
 This cookbook automates installation and usage of docker-compose.
@@ -28,9 +22,7 @@ This cookbook doesn't have any dependencies on other cookbooks.
 
 ## Attributes
 
-Attributes are used to set default values only. Most probably you 
-will override them in resource specification and will never need to 
-tune.
+Attributes are used to set default values only.
 
 | Key                                 | Default  |
 |:------------------------------------|:---------|
@@ -42,6 +34,7 @@ tune.
 
 ```ruby
 docker_compose_installation '/usr/local/bin/docker-compose' do
+  # optional, attribute value is used if omitted
   version '1.10.1'
    # if not set, uname output will be used - most probably you won't need it
   arch 'x86_64'

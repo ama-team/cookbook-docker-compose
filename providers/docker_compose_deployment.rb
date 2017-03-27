@@ -1,6 +1,8 @@
 class Chef
   class Provider
     class DockerComposeDeployment < ::Chef::Provider
+      use_inline_resources
+
       provides :docker_compose_deployment
 
       def load_current_resource
@@ -8,28 +10,28 @@ class Chef
       end
 
       %w{create start restart pull push down}.each do |command|
-        define_method "action_#{command}" do
+        action command.to_sym do
           execute_command command
         end
       end
 
-      def action_up
+      action :up do
         execute_command 'up', '-d'
       end
 
-      def action_rm
+      action :rm do
         execute_command 'rm', '-f'
       end
 
-      def action_delete
+      action :delete do
         action_rm
       end
 
-      def action_kill
+      action :kill do
         execute_command 'kill', '--signal', @new_resource.signal
       end
 
-      def action_stop
+      action :stop do
         execute_command 'stop', '--timeout', @new_resource.stop_timeout
       end
 
@@ -59,7 +61,7 @@ class Chef
         representation = command.map { |part| '"' + part + '"' } .join ' '
         description = "call command `#{representation}` for deployment defined by configuration #{get_configuration_files}"
         converge_by description do
-          execute *command
+          execute(*command)
         end
       end
     end

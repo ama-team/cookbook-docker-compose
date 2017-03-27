@@ -7,6 +7,9 @@ provisioner:
   name: chef_zero
   cookbook_path: test/cookbooks
 
+verifier:
+  name: inspec
+
 platforms:
   - name: ubuntu-14.04
 
