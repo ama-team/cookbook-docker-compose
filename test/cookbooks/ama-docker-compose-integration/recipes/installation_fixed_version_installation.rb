@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: ama-docker-compose-integration
-# Recipe:: _installation_bootstrap
+# Recipe:: installation_fixed_version_installation
 #
 # Copyright 2017, AMA Team
 #
@@ -24,12 +24,9 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-directory AMA::Chef::Cookbook::DockerCompose::PathSpec.deployment do
-  recursive true
-end
+workspace = workspace_directory!('fixed-version-installation')
+path = ::File.join(workspace, 'docker-compose')
 
-docker_service 'default' do
-  action [:create, :start]
+docker_compose_installation path do
+  version node['ama-docker-compose']['integration']['fixed_version']['version']
 end
-
-docker_compose_installation '/usr/local/bin/docker-compose'

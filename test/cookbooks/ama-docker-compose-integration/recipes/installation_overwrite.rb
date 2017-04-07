@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: ama-docker-compose-integration
-# Recipe:: installation_overwrite_installation
+# Recipe:: installation_overwrite
 #
 # Copyright 2017, AMA Team
 #
@@ -24,14 +24,12 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-install_directory = AMA::Chef::Cookbook::DockerCompose::PathSpec.installation('overwrite')
-path = ::File.join(install_directory, 'docker-compose')
+workspace = workspace_directory!('overwrite')
+path = ::File.join(workspace, 'docker-compose')
 versions = {
     installation: '1.8.0',
     overwrite: '1.10.1',
 }
-
-directory install_directory
 
 versions.each do |type, version|
   docker_compose_installation "#{path}:#{type}" do

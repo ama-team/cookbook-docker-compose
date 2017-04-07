@@ -218,7 +218,6 @@ DEPENDENCIES
   kitchen-inspec (= 0.17)
   kitchen-vagrant (= 1.0)
   test-kitchen (= 1.15.0)
-  thor (= 0.19.1)
 
 BUNDLED WITH
-   1.13.6
+   1.14.6

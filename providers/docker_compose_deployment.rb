@@ -28,11 +28,15 @@ class Chef
       end
 
       action :kill do
-        execute_command 'kill', '--signal', @new_resource.signal
+        execute_command 'kill', '-s', @new_resource.signal
       end
 
       action :stop do
-        execute_command 'stop', '--timeout', @new_resource.stop_timeout
+        arguments = ['stop']
+        if @new_resource.stop_timeout
+          arguments = arguments.concat(['--timeout', @new_resource.stop_timeout.to_s])
+        end
+        execute_command *arguments
       end
 
       private

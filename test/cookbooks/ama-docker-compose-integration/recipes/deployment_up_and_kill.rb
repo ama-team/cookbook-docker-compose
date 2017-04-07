@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: ama-docker-compose-integration
-# Recipe:: installation_install_fixed_version
+# Recipe:: deployment_up_and_kill
 #
 # Copyright 2017, AMA Team
 #
@@ -24,10 +24,10 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-install_directory = AMA::Chef::Cookbook::DockerCompose::PathSpec.installation('fixed-version')
-path = ::File.join(install_directory, 'docker-compose')
+workspace = workspace_directory!('up-and-kill')
+path = ::File.join(workspace, 'docker-compose.yml')
 
-directory install_directory
-docker_compose_installation path do
-  version '1.8.0'
+cookbook_file path
+docker_compose_deployment path do
+  action [:up, :kill]
 end

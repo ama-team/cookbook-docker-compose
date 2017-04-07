@@ -1,20 +1,37 @@
 ---
+attributes: &attributes
+  ama-docker-compose:
+    version: 1.10.1
+    integration:
+      workspace: /tmp/ama
+      fixed_version:
+        version: 1.8.0
+      overwrite:
+        default_version: 1.8.0
+        overwrite_version: 1.10.1
+
 driver:
   name: vagrant
   use_vagrant_berkshelf_plugin: true
 
 provisioner:
   name: chef_zero
-  cookbook_path: test/cookbooks
 
 verifier:
   name: inspec
+  attributes: *attributes
 
 platforms:
+  - name: ubuntu-12.04
   - name: ubuntu-14.04
+  - name: ubuntu-16.04
+  - name: debian-7.11
+  - name: debian-8.2
+  - name: centos-6.5
+  - name: centos-7.2
 
 suites:
   - name: default
     run_list:
       - recipe[ama-docker-compose-integration::default]
-    attributes:
+    attributes: *attributes

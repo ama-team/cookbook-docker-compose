@@ -2,6 +2,11 @@
 
 This cookbook automates installation and usage of docker-compose.
 
+Please not that most of the actions - at least for 0.1.x - are executed
+regardless of current state. Even if all containers are up and running,
+action `:up` will issue a new shell command. Single-service actions 
+are not supported either. 
+
 ## Requirements
 
 ### Platforms
@@ -36,15 +41,8 @@ Attributes are used to set default values only.
 docker_compose_installation '/usr/local/bin/docker-compose' do
   # optional, attribute value is used if omitted
   version '1.10.1'
-   # if not set, uname output will be used - most probably you won't need it
-  arch 'x86_64'
-  # same thing
-  platform 'Linux'
   # just in case you don't like specifying path in resource name 
   path '/usr/local/bin/docker-compose'
-  # used to prevent shell commands stalling
-  # you may set it to nil to disable
-  timeout 300
   # create it or delete it
   action :create
 end

@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: ama-docker-compose-integration
-# Recipe:: deployment_up_and_down
+# Recipe:: deployment_lifecycle
 #
 # Copyright 2017, AMA Team
 #
@@ -24,10 +24,10 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-workspace = workspace_directory!('up-and-down')
+workspace = workspace_directory!('lifecycle')
 path = ::File.join(workspace, 'docker-compose.yml')
 
 cookbook_file path
 docker_compose_deployment path do
-  action [:up, :down]
+  action [:create, :start, :stop, :rm, :delete]
 end

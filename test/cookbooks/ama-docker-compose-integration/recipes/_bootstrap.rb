@@ -24,6 +24,8 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-directory AMA::Chef::Cookbook::DockerCompose::PathSpec.installation do
-  recursive true
+docker_service 'default' do
+  action [:create, :start]
 end
+
+docker_compose_installation '/usr/local/bin/docker-compose'

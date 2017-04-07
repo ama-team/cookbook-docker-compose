@@ -25,12 +25,13 @@
 #
 #
 
-# include_recipe '::_installation_bootstrap'
-# include_recipe '::installation_install_default_version'
-# include_recipe '::installation_install_fixed_version'
-# include_recipe '::installation_overwrite_installation'
-# include_recipe '::installation_remove_existing_installation'
-# include_recipe '::installation_remove_missing_installation'
-#
-# include_recipe '::_deployment_bootstrap'
+include_recipe '::_bootstrap'
+
+include_recipe '::installation_default_version_installation'
+include_recipe '::installation_fixed_version_installation'
+include_recipe '::installation_overwrite'
+include_recipe '::installation_existing_installation_removal'
+include_recipe '::installation_missing_installation_removal'
 include_recipe '::deployment_up_and_down'
+include_recipe '::deployment_up_and_kill'
+include_recipe '::deployment_lifecycle'

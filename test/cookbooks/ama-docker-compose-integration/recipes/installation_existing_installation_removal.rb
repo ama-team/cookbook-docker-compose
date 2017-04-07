@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: ama-docker-compose-integration
-# Recipe:: installation_remove_existing_installation
+# Recipe:: installation_existing_installation_removal
 #
 # Copyright 2017, AMA Team
 #
@@ -24,16 +24,13 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-install_directory = AMA::Chef::Cookbook::DockerCompose::PathSpec.installation('removal/existing')
-path = ::File.join(install_directory, 'docker-compose')
+workspace = workspace_directory!('existing-installation-removal')
+path = ::File.join(workspace, 'docker-compose')
 actions = {
     installation: :install,
     removal: :delete
 }
 
-directory install_directory do
-  recursive true
-end
 actions.each do |type, action|
   docker_compose_installation "#{path}:#{type}" do
     path path
