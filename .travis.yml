@@ -10,5 +10,6 @@ env:
     - PLATFORM_PATTERN=centos
     - PLATFORM_PATTERN=fedora
 script:
-  - gem install rake
   - bundle exec kitchen test $PLATFORM_PATTERN
+before_install:
+  - gem update --system
