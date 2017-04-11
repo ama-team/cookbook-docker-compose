@@ -1,19 +1,23 @@
 # ama-docker-compose Cookbook
 
-This cookbook automates installation and usage of docker-compose.
+This cookbook automates installation and usage of 
+[Docker Compose][compose] tool.
 
 Please not that most of the actions - at least for 0.1.x - are executed
 regardless of current state. Even if all containers are up and running,
 action `:up` will issue a new shell command. Single-service actions 
-are not supported either. 
+are not yet supported either. 
 
 ## Requirements
 
 ### Platforms
 
-- Ubuntu
+- Ubuntu LTS 12.04+
+- Debian 7+
+- Fedora 21+
+- Centos 6.5+
 
-Should work on Debian and other Linux distros as well, but we don't 
+Should work on other Linux distros as well, but we don't 
 have enough time to set up kitchen grounds for all cases. Should work
 on Mac as well but never tested.
 
@@ -31,44 +35,71 @@ Attributes are used to set default values only.
 
 | Key                                 | Default  |
 |:------------------------------------|:---------|
-| `['ama-docker-compose']['version']` | `1.10.1` |
+| `['ama-docker-compose']['version']` | `1.12.0` |
 
 ## Resources
 
 ### docker_compose_installation
 
+Installs Docker Compose, latest version (known by cookbook) by default.
+
+Examples:
+
 ```ruby
-docker_compose_installation '/usr/local/bin/docker-compose' do
-  # optional, attribute value is used if omitted
-  version '1.10.1'
-  # just in case you don't like specifying path in resource name 
+docker_compose_installation '/usr/local/bin/docker-compose'
+```
+
+```ruby
+docker_compose_installation 'default' do
+  version '1.10.1' 
   path '/usr/local/bin/docker-compose'
-  # create it or delete it
-  action :create
 end
 ```
+
+Available actions are `:create`/`:install` and `:delete`/`:remove`,
+`path` attribute defaults to resource name, `version` attribute
+defaults to `node['ama-docker-compose']['version']`. I can't promise
+it will always be up to date, though.
 
 ### docker_compose_deployment
 
+This resource operates with docker composition (named as deployment for
+clarity), running commands as up, down, kill and others against set of
+docker-compose files.
+
+Examples:
+
 ```ruby
-docker_compose_deployment '/srv/router/docker-compose.yml' do
-  # standard location is used by default, but you can specify it if you wish
-  compose_path '/usr/local/bin/docker-compose'
-  configuration_files ['/srv/router/docker-compose.yml', '/srv/router/docker-compose-overrides.yml']
-  # used to prevent shell commands stalling
-  # you may set it to nil to disable
-  timeout 300
-  # used with :stop action
-  stop_timeout 10
-  # used with :kill action
+# Runs up command against  specified file
+docker_compose_deployment '/srv/router/docker-compose.yml'
+```
+
+```ruby
+docker_compose_deployment 'router' do
+  executable '/usr/local/bin/docker-compose'
+  files '/srv/router/docker-compose.yml'
   signal 'SIGHUP'
-  action :up
+  action :kill
 end
 ```
 
-Please note that name property is used to locate configuration file
-unless `configuration_files` contains non-empty array, in that case
-`configuration_files` will take precedence.
+```ruby
+docker_compose_deployment 'router' do
+  files ['/srv/router/docker-compose.yml', '/srv/router/docker-compose-overrides.yml']
+  timeout 10
+  action :stop
+end
+```
+
+Attributes:
+
+| Attribute | Types | Default | Description |
+|:----------------|:---|:---|:---|
+| `files`         | String / String[] | Resource name                   | Single or multiple paths to configuration files |
+| `executable`    | String            | `/usr/local/bin/docker-compose` | Path to specific docker-compose executable      |
+| `timeout`       | Integer / Nil     | `10`                            | Timeout for internal docker-compose commands where applicable |
+| `shell_timeout` | Integer / Nil     | `300`                           | Timeout for any underlying command to prevent infinite stalling | 
+| `signal`        | String            | `SIGKILL`                       | Signal for kill command |
 
 Available actions are:
 
@@ -86,9 +117,11 @@ Available actions are:
 | `:down`    | Maps to same docker-compose command                  |
 | `:kill`    | Maps to same docker-compose command                  |
 
+
 Please note that those actions are always executed (at least, for now),
-since it is difficult to check whether all containers are up. However,
-you can always use guard files that, if present, would guarantee action
+since it is difficult to check whether all containers are up, killed, 
+stopped or anything else regarding state of deployment. However, you 
+can always use guard files that, if present, would guarantee action
 has been executed.
 
 ## Contributing
@@ -98,10 +131,15 @@ has been executed.
 3. Write your change
 4. Write tests for your change (if applicable)
 5. Run the tests, ensuring they all pass
-6. Submit a Pull Request using Github
+6. Submit a Pull Request to `dev` branch using Github
 
 ## License and Authors
 
 Authors: AMA Team / Operations  
 License: MIT
 
+Information about Docker Compose authors and license can be found in
+[official github repository][github/compose].
+
+  [compose]: https://docs.docker.com/compose/
+  [github/compose]: https://github.com/docker/compose

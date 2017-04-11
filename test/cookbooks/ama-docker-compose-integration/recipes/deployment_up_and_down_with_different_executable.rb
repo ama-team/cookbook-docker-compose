@@ -1,6 +1,6 @@
 #
-# Cookbook Name:: ama-docker-compose
-# Recipe:: install
+# Cookbook Name:: ama-docker-compose-integration
+# Recipe:: deployment_up_and_down_with_different_executable
 #
 # Copyright 2017, AMA Team
 #
@@ -24,4 +24,14 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-docker_compose_installation '/usr/local/bin/docker-compose'
+workspace = workspace_directory!('up-and-down-with-different-executable')
+path = ::File.join(workspace, 'docker-compose.yml')
+
+executable = ::File.join(workspace, 'docker-compose')
+docker_compose_installation executable
+
+cookbook_file path
+docker_compose_deployment path do
+  executable executable
+  action [:up, :down]
+end

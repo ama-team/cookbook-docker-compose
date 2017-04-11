@@ -27,8 +27,8 @@
 workspace = workspace_directory!('existing-installation-removal')
 path = ::File.join(workspace, 'docker-compose')
 actions = {
-    installation: :install,
-    removal: :delete
+  installation: :install,
+  removal: :delete
 }
 
 actions.each do |type, action|

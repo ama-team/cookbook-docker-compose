@@ -1,0 +1,13 @@
+sudo: required
+services:
+  - docker
+rvm:
+  - 2.4
+env:
+  matrix:
+    - PLATFORM_PATTERN=ubuntu
+    - PLATFORM_PATTERN=debian
+    - PLATFORM_PATTERN=centos
+    - PLATFORM_PATTERN=fedora
+script:
+  - bundle exec kitchen test $PLATFORM_PATTERN
