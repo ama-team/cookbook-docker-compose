@@ -79,6 +79,8 @@ GEM
       thor (~> 0.19)
       train (>= 0.22.0, < 1.0)
     json (2.0.3)
+    kitchen-docker (2.6.0)
+      test-kitchen (>= 1.0.0)
     kitchen-inspec (0.17.0)
       hashie (~> 3.4)
       inspec (>= 0.34.0, < 2.0.0)
@@ -216,6 +218,7 @@ PLATFORMS
 
 DEPENDENCIES
   berkshelf (~> 5.6)
+  kitchen-docker (= 2.6)
   kitchen-inspec (= 0.17)
   kitchen-vagrant (= 1.0)
   rake

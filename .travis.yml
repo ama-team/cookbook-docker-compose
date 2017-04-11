@@ -4,6 +4,8 @@ services:
 rvm:
   - 2.4
 env:
+  global:
+    KITCHEN_LOCAL_YAML: .kitchen.travis.yml
   matrix:
     - PLATFORM_PATTERN=ubuntu
     - PLATFORM_PATTERN=debian

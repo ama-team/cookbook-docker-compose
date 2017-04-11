@@ -9,10 +9,13 @@ attributes: &attributes
       overwrite:
         default_version: 1.8.0
         overwrite_version: 1.10.1
+      driver: docker
 
 driver:
-  name: vagrant
-  use_vagrant_berkshelf_plugin: true
+  name: docker
+  use_sudo: false
+  volume:
+    - /var/run/docker.sock:/var/run/docker.sock
 
 provisioner:
   name: chef_zero
