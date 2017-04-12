@@ -10,7 +10,7 @@ are not yet supported either.
 
 Dev branch state:
 
-[![Travis branch](https://img.shields.io/travis/ama-team/cookbook-docker-compose/dev.svg?style=flat-square)](https://github.com/ama-team/cookbook-docker-compose)
+[![Travis branch](https://img.shields.io/travis/ama-team/cookbook-docker-compose/dev.svg?style=flat-square)](https://travis-ci.org/ama-team/cookbook-docker-compose)
 
 ## Requirements
 
