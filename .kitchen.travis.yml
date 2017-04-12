@@ -1,0 +1,21 @@
+---
+attributes: &attributes
+  ama-docker-compose:
+    version: 1.10.1
+    integration:
+      driver: docker
+
+driver:
+  name: docker
+  use_sudo: false
+  volume:
+    - /var/run/docker.sock:/var/run/docker.sock
+
+verifier:
+  attributes: *attributes
+
+suites:
+  - name: default
+    run_list:
+      - recipe[ama-docker-compose-integration::default]
+    attributes: *attributes

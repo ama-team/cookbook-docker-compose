@@ -24,8 +24,10 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-docker_service 'default' do
-  action [:create, :start]
+unless node['ama-docker-compose']['integration']['driver'] == 'docker'
+  docker_service 'default' do
+    action [:create, :start]
+  end
 end
 
 docker_compose_installation '/usr/local/bin/docker-compose'

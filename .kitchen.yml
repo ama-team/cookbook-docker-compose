@@ -12,7 +12,6 @@ attributes: &attributes
 
 driver:
   name: vagrant
-  use_vagrant_berkshelf_plugin: true
 
 provisioner:
   name: chef_zero
@@ -22,7 +21,6 @@ verifier:
   attributes: *attributes
 
 platforms:
-  - name: ubuntu-12.04
   - name: ubuntu-14.04
   - name: ubuntu-16.04
   - name: debian-7.11
