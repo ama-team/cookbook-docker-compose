@@ -5,7 +5,7 @@ rvm:
   - 2.4
 env:
   global:
-    KITCHEN_LOCAL_YAML: .kitchen.travis.yml
+    KITCHEN_LOCAL_YAML: ".kitchen.travis.yml"
   matrix:
     - PLATFORM_PATTERN=ubuntu
     - PLATFORM_PATTERN=debian
@@ -15,3 +15,10 @@ script:
   - bundle exec kitchen test $PLATFORM_PATTERN
 before_install:
   - gem update --system
+  - openssl aes-256-cbc -K $encrypted_58eb139a4a99_key -iv $encrypted_58eb139a4a99_iv -in .supermarket_key.encrypted -out .supermarket_key -d
+deploy:
+  provider: supermarket
+  client_key: .supermarket_key
+  cookbook_category: Operating Systems & Virtualization
+  on:
+    tags: true

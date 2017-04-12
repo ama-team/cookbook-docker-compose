@@ -1,4 +1,22 @@
-4.04+
+# ama-docker-compose Cookbook
+
+This cookbook automates installation and usage of 
+[Docker Compose][compose] tool.
+
+Please not that most of the actions - at least for 0.1.x - are executed
+regardless of current state. Even if all containers are up and running,
+action `:up` will issue a new shell command. Single-service actions 
+are not yet supported either.
+
+Dev branch state:
+
+[![Travis branch](https://img.shields.io/travis/ama-team/cookbook-docker-compose/dev.svg?style=flat-square)](https://github.com/ama-team/cookbook-docker-compose)
+
+## Requirements
+
+### Platforms
+
+- Ubuntu LTS 14.04+
 - Debian 7+
 - Fedora 21+
 - Centos 6.5+
