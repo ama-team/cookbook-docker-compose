@@ -41,6 +41,12 @@ Attributes are used to set default values only.
 |:------------------------------------|:---------|
 | `['ama-docker-compose']['version']` | `1.12.0` |
 
+## Recipes
+
+You can skip some burden and include `default` recipe to install 
+version specified in attribute in default location 
+(`/usr/local/bin/docker-compose`).
+
 ## Resources
 
 ### docker_compose_installation
