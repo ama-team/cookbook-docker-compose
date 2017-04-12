@@ -20,6 +20,8 @@ deploy:
   provider: chef-supermarket
   user_id: ama-team
   client_key: .supermarket_key
+  cookbook_name: ama-docker-compose
   cookbook_category: Operating Systems & Virtualization
   on:
+    condition: '"$PLATFORM_PATTERN" = "ubuntu"'
     tags: true
