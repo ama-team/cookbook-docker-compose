@@ -110,6 +110,7 @@ Attributes:
 | `timeout`       | Integer / Nil     | `10`                            | Timeout for internal docker-compose commands where applicable |
 | `shell_timeout` | Integer / Nil     | `300`                           | Timeout for any underlying command to prevent infinite stalling | 
 | `signal`        | String            | `SIGKILL`                       | Signal for kill command |
+| `scale`         | String            |                                 | Arguments for docker-compose scale command e.g. `nginx=2`|
 
 Available actions are:
 
@@ -126,6 +127,7 @@ Available actions are:
 | `:up`      | Maps to same docker-compose command                  |
 | `:down`    | Maps to same docker-compose command                  |
 | `:kill`    | Maps to same docker-compose command                  |
+| `:scale`   | Maps to same docker-compose command                  |
 
 
 Please note that those actions are always executed (at least, for now),

@@ -29,5 +29,6 @@ path = ::File.join(workspace, 'docker-compose.yml')
 
 cookbook_file path
 docker_compose_deployment path do
-  action [:create, :start, :stop, :rm, :delete]
+  scale 'nginx=2'
+  action [:create, :start, :scale, :stop, :rm, :delete]
 end
