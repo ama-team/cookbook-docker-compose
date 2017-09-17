@@ -1,6 +1,7 @@
 ---
 attributes: &attributes
   ama-docker-compose:
+    version: 1.16.1
     integration:
       driver: docker
 
