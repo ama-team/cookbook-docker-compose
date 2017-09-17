@@ -1,7 +1,7 @@
 ---
 attributes: &attributes
   ama-docker-compose:
-    version: 1.10.1
+    version: 1.16.1
     integration:
       workspace: /tmp/ama
       fixed_version:
