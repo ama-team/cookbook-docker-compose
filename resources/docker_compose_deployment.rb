@@ -1,6 +1,6 @@
 resource_name :docker_compose_deployment
 
-actions :create, :start, :stop, :delete, :rm, :restart, :pull, :push, :up, :down, :kill
+actions :create, :start, :stop, :delete, :rm, :restart, :pull, :push, :up, :down, :kill, :scale
 default_action :up
 
 attribute :executable, String, default: '/usr/local/bin/docker-compose'
@@ -8,6 +8,7 @@ attribute :files, [Array, String], name_property: true
 attribute :timeout, Integer, default: 10
 attribute :shell_timeout, Integer, default: 300
 attribute :signal, String, default: 'SIGKILL'
+attribute :scale, String
 
 action_class do
   def configuration_files
@@ -71,3 +72,6 @@ action :stop do
   execute_command(*arguments)
 end
 
+action :scale do
+    execute_command 'scale', new_resource.scale
+end
