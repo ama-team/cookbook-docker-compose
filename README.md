@@ -39,7 +39,7 @@ Attributes are used to set default values only.
 
 | Key                                 | Default  |
 |:------------------------------------|:---------|
-| `['ama-docker-compose']['version']` | `1.12.0` |
+| `['ama-docker-compose']['version']` | `1.16.1` |
 
 ## Recipes
 
@@ -85,6 +85,12 @@ docker_compose_deployment '/srv/router/docker-compose.yml'
 ```
 
 ```ruby
+docker_compose_deployment '/srv/router/docker-compose.yml' do
+  environment({COMPOSE_PROJECT_NAME: 'my_custom_name'})
+end
+```
+
+```ruby
 docker_compose_deployment 'router' do
   executable '/usr/local/bin/docker-compose'
   files '/srv/router/docker-compose.yml'
@@ -111,6 +117,7 @@ Attributes:
 | `shell_timeout` | Integer / Nil     | `300`                           | Timeout for any underlying command to prevent infinite stalling | 
 | `signal`        | String            | `SIGKILL`                       | Signal for kill command |
 | `scale`         | String            |                                 | Arguments for docker-compose scale command e.g. `nginx=2`|
+| `environment`   | Hash / Nil        | `{}`                            | Arbitrary environment variables to be passed to docker-compose call
 
 Available actions are:
 
