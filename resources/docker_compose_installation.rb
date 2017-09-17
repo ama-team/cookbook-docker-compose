@@ -25,7 +25,7 @@ action_class do
       return
     end
     source_url = "https://github.com/docker/compose/releases/download/#{new_version}/docker-compose-#{platform}-#{architecture}"
-    converge_by "Download docker-compose v#{version} from #{source_url} to #{new_resource.path}" do
+    converge_by "Download docker-compose v#{new_resource.version} from #{source_url} to #{new_resource.path}" do
       remote_file_resource = ::Chef::Resource::RemoteFile.new(new_resource.path, run_context)
       remote_file_resource.source(source_url)
       remote_file_resource.mode('755')
