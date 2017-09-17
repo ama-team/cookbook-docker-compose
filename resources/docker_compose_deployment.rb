@@ -9,6 +9,7 @@ attribute :timeout, Integer, default: 10
 attribute :shell_timeout, Integer, default: 300
 attribute :signal, String, default: 'SIGKILL'
 attribute :scale, String
+attribute :environment, [Hash, NilClass], default: {}
 
 action_class do
   def configuration_files
@@ -23,8 +24,11 @@ action_class do
     end
     command = command.concat(arguments)
     parameters = {}
-    if @new_resource.shell_timeout and new_resource.shell_timeout > 0
+    if new_resource.shell_timeout and new_resource.shell_timeout > 0
       parameters[:timeout] = new_resource.shell_timeout
+    end
+    if new_resource.environment
+      parameters[:environment] = new_resource.environment
     end
     execution = Mixlib::ShellOut.new(*command, parameters).run_command
     execution.error!
