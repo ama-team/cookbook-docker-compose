@@ -1,1 +1,1 @@
-default['ama-docker-compose']['version'] = '1.12.0'
+default['ama-docker-compose']['version'] = '1.16.1'
