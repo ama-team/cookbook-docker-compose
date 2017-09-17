@@ -6,7 +6,7 @@ source_url       'https://github.com/ama-team/cookbook-docker-compose'
 license          'MIT'
 description      'Installs/Configures ama-docker-compose'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          '0.1.1'
+version          '0.1.2'
 
 supports 'debian', '>= 7.0'
 supports 'ubuntu', '>= 14.04'

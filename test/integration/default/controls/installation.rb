@@ -24,7 +24,6 @@ control 'overwrite' do
   end
 end
 
-
 control 'existing installation removal' do
   describe docker_compose_installation(profile.workspace('existing-installation-removal/docker-compose')) do
     it { should_not exist }

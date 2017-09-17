@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: ama-docker-compose-integration
-# Recipe:: default
+# Recipe:: deployment_environment
 #
 # Copyright 2017, AMA Team
 #
@@ -23,17 +23,19 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
-#
 
-include_recipe '::_bootstrap'
+workspace = workspace_directory!('environment')
+path = ::File.join(workspace, 'docker-compose-custom.yml')
+custom_path = ::File.join(workspace, 'docker-compose-custom.yml')
 
-include_recipe '::installation_default_version_installation'
-include_recipe '::installation_fixed_version_installation'
-include_recipe '::installation_overwrite'
-include_recipe '::installation_existing_installation_removal'
-include_recipe '::installation_missing_installation_removal'
-include_recipe '::deployment_up_and_down'
-include_recipe '::deployment_up_and_kill'
-include_recipe '::deployment_lifecycle'
-include_recipe '::deployment_up_and_down_with_different_executable'
-include_recipe '::deployment_environment'
+cookbook_file custom_path do
+  source 'docker-compose.yml'
+end
+
+# It should bring up deployment even though compose file path is not
+# supplied directly
+docker_compose_deployment 'fake://path' do
+  files([])
+  environment(COMPOSE_FILE: custom_path)
+  action [:up, :kill]
+end
