@@ -1,4 +1,5 @@
 resource_name :docker_compose_deployment
+provides :docker_compose_deployment
 
 actions :create, :start, :stop, :delete, :rm, :restart, :pull, :push, :up, :down, :kill, :scale
 default_action :up

@@ -1,4 +1,5 @@
 resource_name :docker_compose_installation
+provides :docker_compose_installation
 
 actions :install, :delete, :create, :remove
 default_action :install
